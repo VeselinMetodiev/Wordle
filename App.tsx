@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { Button, Platform, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { DATA } from './data';
 import VeskoKeyboard from './Keyboard';
 import Word from './Word';
 
@@ -11,11 +12,12 @@ interface AppState {
   newGame: boolean;
 }
 
-export const SAMPLE_WORDS = ['VESKO', 'BORIS', 'SASHO', 'GOSHO', 'TOSHO', 'ALEKS']
+export const SAMPLE_WORDS = DATA;
 
 export function getRandomWord() {
     const number = Math.floor(Math.random() * SAMPLE_WORDS.length);
     console.log(number);
+    console.log(SAMPLE_WORDS[number])
     return SAMPLE_WORDS[number];
 }
 
@@ -28,9 +30,13 @@ export default class App extends Component<{}, AppState> {
   }
 
   handleSubmit = (word: string) => {
+    if(DATA.includes(word)){
     this.setState({userGuesses: this.state.userGuesses.concat(word)})
     console.log(this.state.userGuesses)
+  } else {
+    console.log('name not in data.')
   }
+}
 
   initialize = () => {
     this.setState({  
